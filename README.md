@@ -1,6 +1,7 @@
 # Technical-support-app-for-Android-
-This Technical support app build it with java using jdk 8 202u and for layouts designing i used XML
+This Technical support app working with android device's bulid it with java using jdk 8u202 and for layouts designing i used XML
 .
 .
 . 
-Open source you can used for education or personal used
+use andriud studio 2021 version.
+This project Open source you can used for education or personal used
