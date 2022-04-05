@@ -1,0 +1,223 @@
+java code
+_______________________________________________________________________________________
+package com.example.myapplication;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class dashboard2 extends AppCompatActivity {
+
+
+    private ImageButton pic1;
+    private ImageButton pic2;
+    private ImageButton pic3;
+    private Button logout1;
+    private ImageButton pic80;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dashboard2);
+        pic1 = findViewById(R.id.image1);
+        pic2 = findViewById(R.id.image2);
+        pic3 = findViewById(R.id.image3);
+        logout1 = findViewById(R.id.out1);
+        pic80 = findViewById(R.id.image800);
+
+
+        pic1.setOnClickListener(view -> {
+            Intent intent = new Intent(dashboard2.this, ticketarea.class);
+            startActivity(intent);
+        });
+        pic2.setOnClickListener(view -> {
+            Intent intent = new Intent(dashboard2.this, clintticketsview.class);
+            startActivity(intent);
+        });
+        pic3.setOnClickListener(view -> {
+            Intent intent = new Intent(dashboard2.this, technicalsupportlist.class);
+            startActivity(intent);
+        });
+
+        logout1.setOnClickListener(v -> {
+            Intent intent = new Intent(dashboard2.this, login_page.class);
+            startActivity(intent);
+            finish();
+        });
+        pic80.setOnClickListener(v -> {
+            Intent intent = new Intent(dashboard2.this, UserInfo.class);
+            startActivity(intent);
+            finish();
+        });
+    }
+}
+
+
+
+_____________________________________________________________________________
+xml code
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dashboardbackg"
+    tools:context=".dashboard2">
+
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/image800"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/user1"
+            android:contentDescription="@string/todo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_back"
+                android:textColor="@color/white"
+                android:typeface="sans" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l1"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/cardview_dark_background"
+                app:cardCornerRadius="15dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/image1"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_ticket" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/cardview_dark_background"
+                app:cardCornerRadius="15dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/image2"
+                        android:layout_width="34dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_list" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/cardview_dark_background"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageButton
+                        android:id="@+id/image3"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_ts">
+
+                    </ImageButton>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/out1"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="66dp"
+        android:layout_height="36dp"
+        android:text="out" />
+
+</RelativeLayout>
+
+by khaled_bader_aldweesh

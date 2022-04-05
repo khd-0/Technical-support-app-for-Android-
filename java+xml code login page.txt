@@ -1,0 +1,227 @@
+java code:-
+________________________________________________________________________________________________________________________
+package com.example.myapplication;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+
+public class login_page extends AppCompatActivity {
+
+    private EditText Email;
+    private EditText Password;
+    private Button Login;
+    private TextView info;
+    private TextView Login_text;
+    private int counter = 3;
+    FirebaseAuth auth;
+	/*khaledbader
+    FirebaseFirestore fstore;
+    boolean vailid = true;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_page);
+        Email = (EditText) findViewById(R.id.Email);
+        Password = (EditText) findViewById(R.id.Password);
+        Login = (Button) findViewById(R.id.Login);
+        Login_text = (TextView) findViewById(R.id.login_text);
+        info = (TextView) findViewById(R.id.info);
+        auth =FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
+
+        Login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vailid){
+
+                    auth.signInWithEmailAndPassword(Email.getText().toString(),Password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Toast.makeText(login_page.this,"login is successfully", Toast.LENGTH_SHORT).show();
+                            checkUserAccesslevel(authResult.getUser().getUid());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+
+
+
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoUrl("https://serv.tvtc.gov.sa/App/hd/application.aspx");
+            }
+        });
+
+
+    }
+
+    private void checkUserAccesslevel(String uid) {
+        DocumentReference ch = fstore.collection("Users").document(uid);
+        ch.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("TAG", "onSuccess: " +documentSnapshot.getData());
+                if (documentSnapshot.getString("admin")!=null){
+                    startActivity(new Intent(getApplicationContext(),adminboard.class));
+                    finish();
+                }
+                if (documentSnapshot.getString("user")!=null){
+                    startActivity(new Intent(getApplicationContext(),dashboard2.class));
+                    finish();
+                }
+            }
+        });
+    }
+
+    private void gotoUrl(String s) {
+        Uri uri = Uri.parse(s);
+        startActivity(new Intent(Intent.ACTION_VIEW,uri));
+    }
+
+
+}
+
+__________________________________________________________________________________________________________________________
+xml code:-
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
+    tools:context=".login_page">
+
+
+    <LinearLayout
+        android:layout_width="369dp"
+        android:layout_height="264dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <EditText
+            android:id="@+id/Email"
+            android:layout_width="339dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custiom_input"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="  E-mail"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textColorHint="#00BCD4">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="339dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custiom_input"
+            android:drawableStart="@drawable/ic_ock"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="  Password"
+            android:inputType="number|textPassword|textCapWords"
+            android:textColor="@color/black"
+            android:textColorHint="#00BCD4">
+
+        </EditText>
+
+        <Button
+            android:id="@+id/Login"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:minWidth="150dp"
+            android:text="Login"
+            android:textColor="#FFFFFF">
+
+        </Button>
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:text="need help ?"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp">
+
+        </TextView>
+
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="188dp"
+        android:layout_height="163dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_text"
+        app:srcCompat="@drawable/user1">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/login_text"
+        android:layout_width="222dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="72dp"
+        android:text="\t\t\t\t\t\t\t\tTVTC\n\t\tTechnical Support"
+        android:textColor="#00BCD4"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </TextView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+coded by khaledbaderaldweesh
+____________________________________

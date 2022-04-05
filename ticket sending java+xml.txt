@@ -1,0 +1,147 @@
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ticketarea extends AppCompatActivity {
+
+    private EditText tickettext;
+    private Button btn_PP;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.ticketarea);
+        tickettext = (EditText) findViewById(R.id.ticket_text);
+        btn_PP = (Button) findViewById(R.id.btnpageinprogress);
+
+
+
+
+        btn_PP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String issue = tickettext.getText().toString();
+
+
+                HashMap<String,Object> hashMap = new HashMap<>();
+                hashMap.put("issue",issue);
+
+                FirebaseFirestore.getInstance().collection("Tickets")
+                        .document("FLviae3BkgbpHUbPCN7lpnoKbXt2")
+                        .set(hashMap)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Intent intent = new Intent(ticketarea.this,dashboard2.class);
+                                startActivity(intent);
+                                Toast.makeText(ticketarea.this, "Thank you, the ticket is under review", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+
+
+
+            }
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+_________________________________________________
+xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dashboardbackg"
+    tools:context=".ticketarea">
+
+    <LinearLayout
+        android:layout_width="375dp"
+        android:layout_height="154dp"
+        android:layout_marginTop="124dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/ticket_text"
+            android:layout_width="261dp"
+            android:layout_height="39dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custiom_input"
+            android:ems="10"
+            android:hint="@string/write_your_issue"
+            android:inputType="textMultiLine"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:typeface="monospace"
+            tools:ignore="TouchTargetSizeCheck"
+            android:importantForAutofill="no" />
+
+        <Button
+            android:id="@+id/btnpageinprogress"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/send" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="402dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="52dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_gravity="center"
+            android:text="@string/tickets"
+            android:textAllCaps="false"
+            android:textColor="#00BCD4"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

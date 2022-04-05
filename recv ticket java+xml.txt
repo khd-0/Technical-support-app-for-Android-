@@ -1,0 +1,127 @@
+package com.example.myapplication;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+public class adticketres extends AppCompatActivity {
+    private TextView showissue;
+    private Button goback;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference documentReference = db.collection("Tickets").document("FLviae3BkgbpHUbPCN7lpnoKbXt2");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.adminticketsarea);
+        showissue = (TextView) findViewById(R.id.showissue);
+        goback = (Button) findViewById(R.id.goback);
+
+        DocumentReference documentReference = db.collection("Tickets").document("FLviae3BkgbpHUbPCN7lpnoKbXt2");
+
+
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(adticketres.this, adminboard.class);
+                startActivity(intent);
+                Toast.makeText(adticketres.this, "Ticket under review thanks for Receiving", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+    }
+    protected void onStart(){
+        super.onStart();
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult().exists()){
+                    String showT = task.getResult().getString("issue");
+                    showissue.setText(showT);
+                }
+            }
+        });
+    }
+}
+
+
+
+
+
+
+
+
+___________________________________________________________
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
+    tools:context=".adticketres">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="238dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="153dp"
+        android:text="Receiving tickets"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="354dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/user1" />
+
+        <TextView
+            android:id="@+id/showissue"
+            android:layout_width="138dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text=""
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/goback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Accept" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

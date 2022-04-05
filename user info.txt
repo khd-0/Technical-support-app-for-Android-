@@ -1,0 +1,258 @@
+java
+_________________________________________________________
+package com.example.myapplication;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+public class UserInfo extends AppCompatActivity {
+    private TextView username;
+    private TextView jobtitle;
+    private TextView email;
+    private TextView number;
+    private  TextView officenumber;
+    private ImageView userface;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    DocumentReference documentReference = db.collection("Users").document("FLviae3BkgbpHUbPCN7lpnoKbXt2");
+    private Button button;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_info);
+        username =  findViewById(R.id.username);
+        jobtitle = findViewById(R.id.userjobetitle);
+        email =  findViewById(R.id.emailtextView);
+        number = findViewById(R.id.number);
+        officenumber = findViewById(R.id.officeaddress);
+        userface = findViewById(R.id.userface);
+        
+        button = findViewById(R.id.button2);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserInfo.this,dashboard2.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+
+
+        documentReference = db.collection("Users").document("FLviae3BkgbpHUbPCN7lpnoKbXt2");
+
+        
+
+
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if (task.getResult().exists()){
+                    String name = task.getResult().getString("name");
+                    String email1 = task.getResult().getString("email");
+                    String jobtitle1 = task.getResult().getString("jobtitle");
+                    String officenumber2 = task.getResult().getString("officenumber");
+                    String number3 = task.getResult().getString("number");
+
+                    username.setText(name);
+                    email.setText(email1);
+                    jobtitle.setText(jobtitle1);
+                    officenumber.setText(officenumber2);
+                    number.setText(number3);
+                }else {
+                    Toast.makeText(UserInfo.this, "error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+}
+
+
+
+_______________________________________________________________________
+xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground"
+    tools:context=".UserInfo">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="376dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="home" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/userface"
+        android:layout_width="152dp"
+        android:layout_height="147dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="107dp"
+        android:layout_marginEnd="142dp"
+        android:background="@drawable/user1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+    </ImageView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="417dp"
+        android:layout_height="379dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userface">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="111dp"
+            android:layout_height="22dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="151dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="147dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/userjobetitle"
+            android:layout_width="161dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="151dp"
+            android:layout_marginEnd="147dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="239dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="56dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userjobetitle">
+
+            <ImageView
+                android:id="@+id/emailimageView"
+                android:layout_width="55dp"
+                android:layout_height="37dp"
+                app:srcCompat="@drawable/ic_baseline_email_24" />
+
+            <TextView
+                android:id="@+id/emailtextView"
+                android:layout_width="100dp"
+                android:layout_height="37dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="240dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <ImageView
+                android:id="@+id/phonenumber"
+                android:layout_width="55dp"
+                android:layout_height="37dp"
+
+                app:srcCompat="@drawable/ic_baseline_call_24" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="161dp"
+                android:layout_height="32dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="243dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.508"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+            <ImageView
+                android:id="@+id/address"
+                android:layout_width="55dp"
+                android:layout_height="37dp"
+
+                app:srcCompat="@drawable/ic_baseline_location_on_24" />
+
+            <TextView
+                android:id="@+id/officeaddress"
+                android:layout_width="167dp"
+                android:layout_height="37dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

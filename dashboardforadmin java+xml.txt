@@ -1,0 +1,233 @@
+java code 
+_______________________________________________________________
+package com.example.myapplication;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+public class adminboard extends AppCompatActivity {
+    private ImageButton pic10;
+    private ImageButton pic30;
+    private ImageButton pic40;
+    private ImageButton pic900;
+    private Button logout;
+    FirebaseAuth auth;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dashboardforadmin);
+        pic10 = findViewById(R.id.image1);
+        pic30 = findViewById(R.id.image2);
+        pic40 = findViewById(R.id.image3);
+        logout= findViewById(R.id.out);
+        pic900 = findViewById(R.id.image900);
+        auth = FirebaseAuth.getInstance();
+
+
+
+
+        pic10.setOnClickListener(view -> {
+            Intent intent = new Intent(adminboard.this, adticketres.class);
+            startActivity(intent);
+        });
+
+
+
+        pic30.setOnClickListener(view -> {
+            Intent intent = new Intent(adminboard.this, adticketview.class);
+            startActivity(intent);
+        });
+
+        pic40.setOnClickListener(view -> {
+            Intent intent = new Intent(adminboard.this, technicalsupportlist.class);
+            startActivity(intent);
+        });
+
+        logout.setOnClickListener(v ->{
+            Intent intent = new Intent(adminboard.this,login_page.class);
+            startActivity(intent);
+            finish();
+        });
+
+        pic900.setOnClickListener(v -> {
+            Intent intent = new Intent(adminboard.this, UserInfo.class);
+            startActivity(intent);
+            finish();
+        });
+
+    }
+
+}
+
+
+
+_________________________________________________________________________
+xml code
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dashboardbackg"
+    tools:context=".adminboard">
+
+
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/image900"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/user1"
+            android:contentDescription="TODO" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome back!"
+                android:textColor="@color/white"
+                android:typeface="sans" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/l1"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/cardview_dark_background"
+                app:cardCornerRadius="15dp">
+
+
+                <LinearLayout
+                    android:layout_width="42dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/image1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_message_24" />
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/cardview_dark_background"
+                app:cardCornerRadius="15dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/image2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_list" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dp"
+                app:cardBackgroundColor="@color/cardview_dark_background"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageButton
+                        android:id="@+id/image3"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_ts">
+
+                    </ImageButton>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/out"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="66dp"
+        android:layout_height="36dp"
+        android:text="out" />
+
+</RelativeLayout>
+
+by khaled bader aldweesh
