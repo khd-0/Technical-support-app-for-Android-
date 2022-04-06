@@ -3,5 +3,5 @@ This Technical support app working with android device's bulid it with java usin
 .
 .
 . 
-use andriud studio 2021 version.
+use Android studio 2021 version.
 This project Open source you can used for education or personal used
